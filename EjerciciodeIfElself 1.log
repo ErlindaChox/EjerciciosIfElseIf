@@ -1,0 +1,8 @@
+function precioEntrada(edad) {
+    if (edad < 12) return 5;
+    if (edad > 65) return 7;
+    return 10;
+  }  let edad = parseInt(prompt("EdadDelEspectador:"));
+undefined
+if (!isNaN(edad)) alert("PresioDeEntrada: $" + precioEntrada(edad));
+undefined
