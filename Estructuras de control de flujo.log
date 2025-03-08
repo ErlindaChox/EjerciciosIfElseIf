@@ -1,0 +1,106 @@
+function menu() {
+    let opcion;
+    do {
+        opcion = prompt("Menú de opciones:\n1. Registro de ventas\n2. Conversión de divisas\n3. Cálculo de intereses\n4. Salir\nSeleccione una opción:");
+        
+        if (opcion === null) return;
+        
+        switch (opcion) {
+            case '1':
+                registroVentas();
+                break;
+            case '2':
+                conversionDivisas();
+                break;
+            case '3':
+                calculoIntereses();
+                break;
+            case '4':
+                alert("Saliendo del programa...");
+                break;
+            default:
+                alert("Opción no válida, intente de nuevo.");
+        }
+    } while (opcion !== '4');
+}
+
+function registroVentas() {
+    let total = 0;
+    let continuar;
+    do {
+        let precio = parseFloat(prompt("Ingrese el precio del producto:"));
+        let cantidad = parseInt(prompt("Ingrese la cantidad vendida:"));
+        
+        if (isNaN(precio) || isNaN(cantidad)) {
+            alert("Por favor, ingrese valores numéricos válidos.");
+            continue;
+        }
+        
+        total += precio * cantidad;
+        continuar = prompt("¿Desea agregar otro producto? (s/n)");
+    } while (continuar && continuar.toLowerCase() === 's');
+    alert("Total de ventas: Q" + total.toFixed(2));
+}
+
+function conversionDivisas() {
+    let tasaDolar = parseFloat(prompt("Ingrese el tipo de cambio de dólares a quetzales:"));
+    let tasaEuro = parseFloat(prompt("Ingrese el tipo de cambio de euros a quetzales:"));
+    
+    if (isNaN(tasaDolar) || isNaN(tasaEuro)) {
+        alert("Por favor, ingrese valores numéricos válidos.");
+        return;
+    }
+    
+    let moneda = prompt("Ingrese la moneda a convertir (USD/EUR):").toUpperCase();
+    let monto = parseFloat(prompt("Ingrese el monto a convertir:"));
+    
+    if (isNaN(monto)) {
+        alert("Por favor, ingrese un monto válido.");
+        return;
+    }
+    
+    let resultado;
+    if (moneda === "USD") {
+        resultado = monto * tasaDolar;
+    } else if (moneda === "EUR") {
+        resultado = monto * tasaEuro;
+    } else {
+        alert("Moneda no válida.");
+        return;
+    }
+    alert("El monto en quetzales es: Q" + resultado.toFixed(2));
+}
+
+function calculoIntereses() {
+    let cantidadStands = parseInt(prompt("Ingrese la cantidad de stands rentados:"));
+    let diasRetraso = parseInt(prompt("Ingrese la cantidad de días de retraso:"));
+    
+    if (isNaN(cantidadStands) || isNaN(diasRetraso)) {
+        alert("Por favor, ingrese valores numéricos válidos.");
+        return;
+    }
+    
+    const costoPorStand = 300;
+    let totalBase = cantidadStands * costoPorStand;
+    
+    if (diasRetraso > 2) {
+        let diasMora = diasRetraso - 2;
+        let mora = totalBase * Math.pow(1.02, diasMora) - totalBase;
+        totalBase += mora;
+    }
+    alert("Total a pagar: Q" + totalBase.toFixed(2));
+}
+
+menu();
+
+VM8:1 Uncaught EvalError: Identifier 'menu' cannot be declared with 'var' in current evaluation scope, consider trying 'let' instead
+    at eval (eval at <anonymous> (m=base:345:202), <anonymous>:1:1)
+    at m=base:345:202
+    at m=base:345:433
+    at m=base:350:4
+    at serviceworker.js?xhrRoot=%2Fu%2F0%2F_%2FDynamiteWebUi&mssRowKey=boq-dynamite.DynamiteWebUi.es.NR3wE8UHzf8.2020.O&buildLabel=boq_dynamiteuiserver_20250205.01_p5:1:511
+eval @ VM8:1
+(anónimo) @ m=base:345
+(anónimo) @ m=base:345
+(anónimo) @ m=base:350
+(anónimo) @ serviceworker.js?xhrRoot=%2Fu%2F0%2F_%2FDynamiteWebUi&mssRowKey=boq-dynamite.DynamiteWebUi.es.NR3wE8UHzf8.2020.O&buildLabel=boq_dynamiteuiserver_20250205.01_p5:1
